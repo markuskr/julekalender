@@ -10,7 +10,8 @@ import java.util.List;
 import java.util.Map;
 
 /* The idea of this implementation is to filter the numbers to check.
- With n = 9, would there we need to check 71.131.737 numbers, with a smart filter do we need to check around 1.166.886
+ With n = 9, would there we need to check 71.131.737 numbers, with a smart filter do we need to check around 194.481 (
+  = 21 (number of primes below 100) ^ 4 (number of sequences without startnumber)
  */
 public class Luke2_fast {
 
@@ -69,11 +70,11 @@ public class Luke2_fast {
             return list;
         }
 
-        for (int i = 0; i < n; i ++) {
-            for (Integer p : primes) {
-                int startNumber = start + (int) Math.pow(10, n * 2) * p;
-                list.addAll(possibleNumbersRecursive(n - 1, startNumber));
-            }
+
+        for (Integer p : primes) {
+            int startNumber = start + (int) Math.pow(10, n * 2) * p;
+            list.addAll(possibleNumbersRecursive(n - 1, startNumber));
+
         }
         return list;
     }
