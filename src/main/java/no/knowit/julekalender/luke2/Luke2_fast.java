@@ -20,7 +20,7 @@ public class Luke2_fast {
 
     public static void main(String[] args) throws IOException {
         long start = System.currentTimeMillis();
-        // Takes around 141 milliseconds on my mac book pro
+        // Takes around 87 milliseconds on my mac book pro
         System.out.println(solve(9) + " Took: " + (System.currentTimeMillis() - start));
     }
 
@@ -69,7 +69,6 @@ public class Luke2_fast {
             }
             return list;
         }
-
 
         for (Integer p : primes) {
             int startNumber = start + (int) Math.pow(10, n * 2) * p;
