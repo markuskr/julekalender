@@ -28,11 +28,6 @@ public class Luke2Test {
     }
 
     @Test
-    public void test_sekvensAtIndex(){
-        assertThat(Luke2.sekvensAtLastIndex(53113), is(13));
-    }
-
-    @Test
     public void test_tallsekvenser(){
         assertThat(Luke2.primeTallsekvenser(53113), is(Arrays.asList(13,11,31,53)));
         assertThat(Luke2.primeTallsekvenser(53112).size(), is(0));

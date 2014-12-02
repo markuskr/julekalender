@@ -9,24 +9,37 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
-public class Luke2 {
+/* The idea of this implementation is to filter the numbers to check.
+ With n = 9, would there we need to check 71.131.737 numbers, with a smart filter do we need to check around 1.166.886
+ */
+public class Luke2_fast {
 
     private static Map<Integer, Boolean> primeCache = new HashMap<>();
+    private static List<Integer> primes = new ArrayList<>();
 
     public static void main(String[] args) throws IOException {
         long start = System.currentTimeMillis();
-        // Takes around 1,3 seconds on my mac book pro
+        // Takes around 141 milliseconds on my mac book pro
         System.out.println(solve(9) + " Took: " + (System.currentTimeMillis() - start));
     }
 
     public static int solve(int n){
 
-        int start = (n * (int) Math.pow(10, n - 1)) + 1;
-        int maxNumber =  (n + 1) * (int) Math.pow(10, n - 1);
+        for (int i = 11; i < 100; i += 2) {
+            if (Helpers.isPrime(i)) {
+                primes.add(i);
+            }
+        }
 
-        // We are just interested in odd numbers, since no sequence that ends with an even number can be prime
-        for (int i = start; i < maxNumber; i += 2){
+        int antallSekvenser = ((n - 1)/2) - 1;
+        int startNummer = (int) Math.pow(10, (n - 1)) * n;
 
+        // This function creates a list of all possible pairs
+        List<Integer> possibleNumbers = possibleNumbersRecursive(antallSekvenser, startNummer);
+
+        System.out.println(possibleNumbers.size() + " are remaining to be checked");
+
+        for (Integer i : possibleNumbers){
             List<Integer> primeTallsekvenser = primeTallsekvenser(i);
 
             if (primeTallsekvenser.isEmpty() || primeTallsekvenser.size() != (n - 1)) {
@@ -44,6 +57,25 @@ public class Luke2 {
         }
 
         throw new RuntimeException("No Number was found");
+    }
+
+    static List<Integer> possibleNumbersRecursive(int n, int start){
+        List<Integer> list = new ArrayList<>();
+
+        if (n == 0) {
+            for (Integer p : primes) {
+                list.add(start + p);
+            }
+            return list;
+        }
+
+        for (int i = 0; i < n; i ++) {
+            for (Integer p : primes) {
+                int startNumber = start + (int) Math.pow(10, n * 2) * p;
+                list.addAll(possibleNumbersRecursive(n - 1, startNumber));
+            }
+        }
+        return list;
     }
 
     // This cache contains max 89 entries
@@ -64,9 +96,9 @@ public class Luke2 {
         do {
             sekvens = tall % 100;
             tall /= 10;
+            // Due to the combination of the primes can be still pairs of non-primes in the sequence
             if (sekvens > 9 && isPrimeCached(sekvens)) {
                 sekvenser.add(sekvens);
-
             } else {
                 break;
             }
