@@ -12,6 +12,7 @@ public class Luke1Test {
     @Test
     public void solve() {
         assertThat(Luke1.solve(10), is (8));
+        assertThat(Luke1.solve(1000000), is (25));
     }
 
     @Test

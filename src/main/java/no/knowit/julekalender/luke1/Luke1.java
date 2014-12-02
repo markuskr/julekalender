@@ -5,7 +5,9 @@ import no.knowit.julekalender.Helpers;
 public class Luke1 {
 
     public static void main(String[] args) {
-        System.out.println(solve(1000000));
+        long start = System.currentTimeMillis();
+        // Takes around 77 milliseconds on my mac book pro
+        System.out.println(solve(1000000) + " Took: " + (System.currentTimeMillis() - start));
     }
 
     public static int solve(int max){
@@ -14,7 +16,6 @@ public class Luke1 {
         for (int i = 1; i <= max; i++){
             if (Helpers.isPalindrom(Integer.toString(i)) && Helpers.isPalindrom(Integer.toOctalString(i))){
                 count ++;
-                System.out.println(Integer.toString(i) + "/" + Integer.toOctalString(i));
             }
         }
         return count;
