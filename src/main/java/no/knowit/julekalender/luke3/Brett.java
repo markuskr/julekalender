@@ -2,24 +2,14 @@ package no.knowit.julekalender.luke3;
 
 public class Brett {
 
+    private enum Farge {
+        SVART , HVIT;
+    }
+
     private static int X = 10;
     private static int Y = 10;
 
-    private enum Farge {
-
-        SVART ("S"), HVIT("H");
-
-        private final String representasjon;
-
-        private Farge(String representasjon){
-            this.representasjon = representasjon;
-        }
-
-        public String representasjon(){
-            return representasjon;
-        }
-
-    }
+    private Farge[][] brett = new Farge[X][Y];
 
     public Brett() {
         for (int x = 0; x < X; x++){
@@ -29,8 +19,7 @@ public class Brett {
         }
     }
 
-    public int svarteRuter() {
-
+    public int antallSvarteRuter() {
         int counter = 0;
 
         for (int x = 0; x < X; x++) {
@@ -57,26 +46,7 @@ public class Brett {
         return brett[coordinate.x][coordinate.y];
     }
 
-
-    private Farge[][] brett = new Farge[X][Y];
-
-    public void print() {
-
-        for (int x = 0; x < X; x++){
-            System.out.print("----");
-        }
-        System.out.println("-");
-        for (int x = 0; x < X; x++){
-            System.out.print("| ");
-            for (int y = 0; y < Y; y++) {
-                System.out.print(brett[x][y].representasjon() + " | ");
-            }
-            System.out.println("");
-
-            for (int l = 0; l < X; l++){
-                System.out.print("----");
-            }
-            System.out.println("-");
-        }
+    public boolean isValid(Coordinate coordinate){
+        return coordinate.x >= 0 && coordinate.y >= 0 && coordinate.x < 10 && coordinate.y < 10;
     }
 }

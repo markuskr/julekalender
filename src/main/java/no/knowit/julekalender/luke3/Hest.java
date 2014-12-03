@@ -1,18 +1,24 @@
 package no.knowit.julekalender.luke3;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.PriorityQueue;
 
 public class Hest {
 
-    private final Brett brett;
+    private static final Coordinate START_POSITION = new Coordinate(0, 0);
 
-    private Coordinate current = new Coordinate(0, 0);
+    private final CoordinateMinComparator minComparator = new CoordinateMinComparator();
+    private final CoordinateMaxComparator maxComparator = new CoordinateMaxComparator();
 
-    private List<Coordinate> movingPattern = Arrays.asList(
+    private Coordinate current = START_POSITION;
+
+    private final List<Coordinate> movingPattern = Arrays.asList(
             new Coordinate(2,1), new Coordinate(-2,1), new Coordinate(2,-1), new Coordinate(-2,-1),
             new Coordinate(1,2), new Coordinate(-1,2), new Coordinate(1,-2), new Coordinate(-1,-2));
+
+
+    private final Brett brett;
 
     public Hest(Brett brett){
         this.brett = brett;
@@ -22,41 +28,33 @@ public class Hest {
         return current;
     }
 
-    public void moveHest(Coordinate newPosition){
+    public void moveTo(Coordinate newPosition){
         this.current = newPosition;
     }
 
     public Coordinate nextPosition() {
-        List<Coordinate> newPositions = new ArrayList<>();
+        PriorityQueue<Coordinate> sameRute = new PriorityQueue<>(8, minComparator);
+        PriorityQueue<Coordinate> otherRute = new PriorityQueue<>(8, maxComparator);
 
-        int minRouteId = Integer.MAX_VALUE;
-        int maxRouteId = Integer.MIN_VALUE;
-        int minIndex = -1;
-        int maxIndex = -1;
+        for (Coordinate move : movingPattern){
+            Coordinate newPosition = current.add(move);
 
-        for (int i = 0; i < movingPattern.size(); i++){
-            Coordinate newPosition = current.add(movingPattern.get(i));
-
-            newPositions.add(newPosition);
-
-            if (newPosition.isValid()
-                    && newPosition.toNummer() < minRouteId
+            if (brett.isValid(newPosition)
                     && brett.fargeAt(current) == brett.fargeAt(newPosition)){
-                minIndex = i;
-                minRouteId = newPosition.toNummer();
+                sameRute.add(newPosition);
             }
 
-            if (newPosition.isValid() && newPosition.toNummer() > maxRouteId){
-                maxIndex = i;
-                maxRouteId = newPosition.toNummer();
-
+            if (brett.isValid(newPosition)){
+                otherRute.add(newPosition);
             }
         }
 
-        if (minIndex > -1) {
-            return newPositions.get(minIndex);
+        if (!sameRute.isEmpty()) {
+            return sameRute.peek();
+        } else if (!otherRute.isEmpty()) {
+            return otherRute.peek();
         } else {
-            return newPositions.get(maxIndex);
+            throw new RuntimeException("No move possible");
         }
     }
 }

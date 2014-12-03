@@ -4,7 +4,7 @@ public class Luke3 {
 
     public static void main(String[] args) {
         long start = System.currentTimeMillis();
-        // Takes around 3 milliseconds on my mac book pro
+        // Takes around 5 milliseconds on my mac book pro
         System.out.println(solve() + " Took: " + (System.currentTimeMillis() - start));
     }
 
@@ -15,9 +15,9 @@ public class Luke3 {
         for (int i = 0; i < 200; i ++) {
             Coordinate current = hest.current();
             Coordinate newPosition = hest.nextPosition();
-            hest.moveHest(newPosition);
+            hest.moveTo(newPosition);
             brett.toogleFarge(current);
         }
-        return brett.svarteRuter();
+        return brett.antallSvarteRuter();
     }
 }

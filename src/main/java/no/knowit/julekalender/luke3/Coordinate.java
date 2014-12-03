@@ -17,8 +17,4 @@ public class Coordinate {
     public int toNummer(){
         return x * 10 + y;
     }
-
-    public boolean isValid(){
-        return x >= 0 && y >= 0 && x < 10 && y < 10;
-    }
 }
