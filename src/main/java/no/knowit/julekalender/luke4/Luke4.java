@@ -1,7 +1,5 @@
 package no.knowit.julekalender.luke4;
 
-import org.joda.time.DateTime;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -13,10 +11,10 @@ public class Luke4 {
     public final static String URL = "https://dl.dropboxusercontent.com/u/45621/kilma_data_blindern.txt";
 
     public static void main(String[] args) throws IOException, ParseException {
-        System.out.println("Lowest temperatur in December: " +  solve().toString("dd.MM.yyyy"));
+        System.out.println("Lowest temperatur in December: " +  solve());
     }
 
-    public static DateTime solve() throws IOException, ParseException {
+    public static String solve() throws IOException, ParseException {
         Data lowest = Data.MAX;
         String currentLine;
 
@@ -32,7 +30,7 @@ public class Luke4 {
                 }
             }
         }
-        return lowest.date;
+        return lowest.date.toString("dd.MM.yyyy");
     }
 
     private static BufferedReader downloadReader() throws IOException {

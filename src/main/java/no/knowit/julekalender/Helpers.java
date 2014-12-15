@@ -1,6 +1,8 @@
 package no.knowit.julekalender;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
@@ -9,11 +11,59 @@ public class Helpers {
     // Explanations:
     // http://www.mkyong.com/java/how-to-determine-a-prime-number-in-java/
     public static boolean isPrime(int n) {
-        for(int i = 2; 2 * i < n; i++) {
-            if(n % i== 0)
+
+        if (n == 0 || n == 2 || n == 3) {
+            return true;
+        }
+
+        if (n % 2 == 0){
+            return false;
+        }
+
+        for(int i = 3; i < (int) Math.sqrt(n) + 1; i += 2) {
+            if(n % i == 0)
                 return false;
         }
         return true;
+    }
+
+    public static boolean isPalindrom(int number){
+        return number == reverse(number);
+    }
+
+    public static int reverse(int n) {
+        int reversed = 0;
+
+        while (n > 0) {
+            reversed = reversed * 10 + n % 10;
+            n /= 10;
+        }
+
+        return reversed;
+    }
+
+    public static List<Integer> toList(int n){
+
+        List<Integer> integers = new ArrayList<>();
+
+        while (n > 0){
+            integers.add(n % 10);
+            n /= 10;
+        }
+
+        return integers;
+    }
+
+    public static int intLength(int n){
+
+        int count = 0;
+
+        while (n > 0){
+            count ++;
+            n /= 10;
+        }
+
+        return count;
     }
 
     public static boolean isPalindrom(String string){

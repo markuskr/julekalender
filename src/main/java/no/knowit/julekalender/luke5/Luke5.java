@@ -31,7 +31,7 @@ public class Luke5 {
     }
 
     private static List<Integer> stortaller() {
-        return stortallerRecursiv(0, new HashSet<Integer>());
+        return stortallerRecursiv(0, new HashSet<>());
     }
 
     private static List<Integer> stortallerRecursiv(int current, Set<Integer> usedNumbers){
