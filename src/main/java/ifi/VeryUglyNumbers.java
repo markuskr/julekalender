@@ -1,6 +1,6 @@
-package ladder;
+package ifi;
 
-public class Ladder {
+public class VeryUglyNumbers {
 
     private static NoDuplicatesPriorityQueue<Long> heap = new NoDuplicatesPriorityQueue<>(10000);
 
@@ -14,13 +14,13 @@ public class Ladder {
         // Løsning er
         // 288325195312500000 
         for (int i = 2; i <= 10000; i++){
-            System.out.println(i + " " + nextKnalltall());
+            System.out.println(i + " " + nextUglyNumber());
         }
 
-        System.out.println("Took: "  + (System.currentTimeMillis() - start));
+        System.out.println("Took: " + (System.currentTimeMillis() - start));
     }
 
-    public static long nextKnalltall(){
+    public static long nextUglyNumber(){
         long value = heap.poll();
 
         heap.add(value * 2);

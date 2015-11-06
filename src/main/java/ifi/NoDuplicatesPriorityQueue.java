@@ -1,4 +1,4 @@
-package ladder;
+package ifi;
 
 import java.util.PriorityQueue;
 
