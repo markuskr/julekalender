@@ -12,9 +12,6 @@ public class Luke20 {
 
 
     public static int solve(){
-
-        start = 15;
-
         Rudolf rudolf = new Rudolf();
         rudolf.allPositions(new Coordinate(0,0));
 
